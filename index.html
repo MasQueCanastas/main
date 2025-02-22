@@ -9,6 +9,7 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/3.3.2/js/dataTables.fixedColumns.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -99,6 +100,8 @@
                 font-size: 14px;
             }
         }
+
+       
     </style>
 </head>
 <body>
@@ -161,12 +164,10 @@
 
         $(document).ready(function() {
             $('#statsTable').DataTable({
-                "scrollX": true,
-                "scrollY": "400px",
-                "paging": true,
-                "pageLength": 15,
-                "fixedHeader": true,
-                "fixedColumns": { leftColumns: 1 }
+                paging: false,
+                scrollCollapse: true,
+                scrollX: true,
+                scrollY: 300
             });
             createCharts();
         });
