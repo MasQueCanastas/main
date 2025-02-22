@@ -129,6 +129,7 @@
                         <th>TL Intentados</th>
                         <th>TL Encestados</th>
                         <th>%L Efectividad</th>
+                        <th>Asistencias</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -160,14 +161,19 @@
 
         $(document).ready(function() {
             $('#statsTable').DataTable({
-                "scrollX": true
+                "scrollX": true,
+                "scrollY": "400px",
+                "paging": true,
+                "pageLength": 15,
+                "fixedHeader": true,
+                "fixedColumns": { leftColumns: 1 }
             });
             createCharts();
         });
 
         function addRow() {
             let table = $('#statsTable').DataTable();
-            let newRow = Array(19).fill(0).map((_, i) => i === 0 ? `<input type='text' placeholder='Nombre' oninput='updateStats(this, ${i})'>` : `<input type='number' value='0' oninput='updateStats(this, ${i})'>`);
+            let newRow = Array(20).fill(0).map((_, i) => i === 0 ? `<input type='text' placeholder='Nombre' oninput='updateStats(this, ${i})'>` : `<input type='number' value='0' oninput='updateStats(this, ${i})'>`);
             table.row.add(newRow).draw();
         }
 
@@ -185,7 +191,7 @@
     values[12] = values[11] ? ((values[11] * 100) / values[10]).toFixed(2) : 0;  // %3
     values[13] = values[7] + values[10];  // Total intentos (T2 + T3)
     values[14] = values[8] + values[11];  // Total encestados (T2 + T3)
-    values[15] = ((parseFloat(values[9]) + parseFloat(values[12])) / 2).toFixed(2);  // Promedio %2 y %3
+    values[15] = values[14] ? ((values[14] * 100) / values[13]).toFixed(2) : 0;  // %T
     values[18] = values[17] ? ((values[17] * 100) / values[16]).toFixed(2) : 0;  // %L
 
     // Evitar sobrescribir la columna "Jugador" (índice 0)
